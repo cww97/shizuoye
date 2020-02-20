@@ -1,0 +1,55 @@
+{% extends 'base.jinja2' %}
+
+{% block title %} {{assignment.title}} {% endblock %}
+
+{% block content%}
+
+    <div class="ui three column grid">
+        <div class="twelve wide column">
+            <h1>{{ assignment.title }}</h1>
+            
+            {#<h3>作业内容:</h3>#}
+            <div>{{assignment.description}}</div>
+
+            {% include 'components/form.jinja2' %}
+
+            {% if submissions %}
+                <h3> 我的提交记录 </h3>
+                {% include "submission/list.jinja2" %}
+            {% endif %}
+
+        </div>
+        
+        <div class="four wide column">
+            <div class="ui card">
+                <div class="content">
+                    <h2>Boss:</h2>
+                </div>
+                <div class="content">
+                    <div> {{assignment.author}} </div>
+                </div>
+            </div>
+
+            <div class="ui cards">
+                {% if last_submission != None %}
+                    <div class="card">
+                        <div class="content">
+                            <div class="header">
+                                我的上一次提交
+                            </div>
+                            <div class="description">
+                                {{ STATUS_STR[last_submission.status] }}
+                            </div>
+                            <div class="right floated field">
+                                    <a class="ui primary button" href="{{url('submission_detail', last_submission.pk)}}" >查看</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

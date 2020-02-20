@@ -1,0 +1,15 @@
+{% extends 'base.jinja2' %}
+
+{% block title %} 所有提交 {% endblock %}
+
+{% block content %}
+
+    <br><br><br><br>
+
+    {% for obj in objects %}
+        <div>
+            <a href="{{ url('submission_detail', args=[obj.id]) }}">{{ obj.author }} </a> 
+        </div>
+    {% endfor %}
+
+{% endblock %}

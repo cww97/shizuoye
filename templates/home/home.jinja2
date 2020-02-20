@@ -1,0 +1,103 @@
+{% extends 'base.jinja2' %}
+
+{% block title %} 首页 {% endblock %}
+
+{% block content %}
+<div class="ui three column grid">
+    <div class="left floated four wide column">
+        
+        {# ddd #}
+        <div class="ui card">
+            <div class="image">
+                <img src="{{ request.user.avatar_large.url }}">
+            </div>
+            <div class="content">
+                <a class="header" href="{{url('user_detail', request.user.pk)}}">{{ request.user }}</a>
+                <div class="meta">
+                    <span class="date">{{ request.user.create_time.year }}年加入</span>
+                </div>
+                <div class="description"></div>
+            </div>
+            <div class="extra content">
+                <a><i class="user icon"></i></a>
+            </div>
+        </div>
+
+        <div class="ui card">
+            <div class="content">
+                <div class="header">加入的课程</div>
+            </div>
+            <div class="content">
+                <div class="ui list">
+                    {% if joined_courses.count() == 0 %}
+                            <div class="item">
+                                <i class="map marker icon"></i>
+                                <div class="content">
+                                    <p>您还未加入任何课程，点击右边列表加入吧。</p>
+                                </div>
+                            </div>
+                    {% else %}
+                        {% for joined_course in joined_courses %}
+                            <div class="item">
+                                <i class="map marker icon"></i>
+                                <div class="content">
+                                    <a class="header" href="{{url('course_detail', joined_course.pk)}}">{{joined_course.title}}</a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if joined_courses.count() >= 5 %}
+                <div class="extra content">
+                    <button class="ui button">Show more</button>
+                </div>
+            {% endif %}
+        </div>
+        
+    </div>
+
+
+    <div class="twelve wide column" style="min-height: 500px;">
+
+        <div class="ui divided items" style="min-height: 550px;">
+
+            <h2 class="ui header">Deadline</h2>
+
+            {% for course in courses %}
+                <div class="item">
+                    <div class="content">
+                        <a class="header" href="{{url('course_detail', course.pk)}}">{{ course.title }}</a>
+                        <div class="meta">
+                            {% for teacher in course.teachers.all() %}
+                                <span class="description">{{ teacher.username }}</span>
+                            {% endfor %}
+                        </div>
+                        <div class="description">
+                            <p>{#{{ course.description }}#}</p>
+                        </div>
+                        <div class="extra">
+                            <a href="{{url('course_detail', course.pk)}}"><div class="ui right floated primary button">加入<i class="right chevron icon"></i> </div></a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div style="text-align: center; bottom: 10px;">
+            <div class="ui borderless pagination menu" style="align: center;">
+                <a class="item"><i class="left arrow icon"></i></a>
+                <a class="item">1</a>
+                <a class="item">2</a>
+                <a class="active item">3</a>
+                <a class="disabled item">...</a>
+                <a class="item">5</a>
+                <a class="item">6</a>
+                <a class="item"><i class="icon right arrow"></i></a>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

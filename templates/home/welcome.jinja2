@@ -1,0 +1,49 @@
+{% extends 'base.jinja2' %}
+
+{% block title %} 欢迎加入拾作业 {% endblock %}
+
+{% block body %}
+
+
+	<div class="ui inverted vertical masthead center aligned segment" style="height: 100vh; min-height: 700px;">
+
+		{% block content %}
+			
+			<img src="/static/images/campus/1.jpg" style="height: 100vh;">
+
+			<div class="ui container">
+				{# <h1>ddd</h1> #}
+				<div class="ui large secondary inverted pointing boardless menu">
+					<a class="header item"><h1>拾作业</h1></a>
+					<div class="right item">
+						{% with active = request.path.split('/')[1] %}
+						<a class="{% if active == '' %} active {% endif %} item" href="{{url('home')}}">首页</a>
+						<a class="{% if active == 'assignment' %} active {% endif %} item" href="{{url('assignment_list')}}">作业</a>
+						<a class="{% if active == 'course' %} active {% endif %} item" href="{{url('course_list')}}">课程</a>
+						{% endwith %}
+					</div>
+				</div>
+			</div>
+			
+			<div class="ui text container">
+				<h1 class="ui inverted header">
+					<font size="40">欢迎加入</font>拾作业
+				</h1>
+				<h2></h2>
+				<div class="item">
+					<a class="ui huge inverted button" href="{{url('login')}}?next={{request.path}}">
+						开始<i class="right arrow icon"></i>
+					</a>
+				</div>
+			</div>
+
+			<footer class="ui inverted vertical segment">
+				Powered By <a href="https://github.com/XXX">@XXX</a>.
+			</footer>
+		{% endblock %}
+	</div>
+
+	{% block page_footer %}
+
+    {% endblock %}
+{% endblock %}

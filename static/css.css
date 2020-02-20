@@ -1,0 +1,192 @@
+.hidden.menu {
+display: none;
+}
+
+.masthead.segment {
+min-height: 700px;
+padding: 1em 0em;
+}
+.masthead .logo.item img {
+margin-right: 1em;
+}
+.masthead .ui.menu .ui.button {
+margin-left: 0.5em;
+}
+.masthead h1.ui.header {
+margin-top: 3em;
+margin-bottom: 0em;
+font-size: 4em;
+font-weight: normal;
+}
+.masthead h2 {
+font-size: 1.7em;
+font-weight: normal;
+}
+
+.ui.vertical.stripe {
+padding: 8em 0em;
+}
+.ui.vertical.stripe h3 {
+font-size: 2em;
+}
+.ui.vertical.stripe .button + h3,
+.ui.vertical.stripe p + h3 {
+margin-top: 3em;
+}
+.ui.vertical.stripe .floated.image {
+clear: both;
+}
+.ui.vertical.stripe p {
+font-size: 1.33em;
+}
+.ui.vertical.stripe .horizontal.divider {
+margin: 3em 0em;
+}
+
+.quote.stripe.segment {
+padding: 0em;
+}
+.quote.stripe.segment .grid .column {
+padding-top: 5em;
+padding-bottom: 5em;
+}
+
+.footer.segment {
+padding: 5em 0em;
+}
+
+.secondary.pointing.menu .toc.item {
+display: none;
+}
+
+@media only screen and (max-width: 700px) {
+.ui.fixed.menu {
+    display: none !important;
+}
+.secondary.pointing.menu .item,
+.secondary.pointing.menu .menu {
+    display: none;
+}
+.secondary.pointing.menu .toc.item {
+    display: block;
+}
+.masthead.segment {
+    min-height: 350px;
+}
+.masthead h1.ui.header {
+    font-size: 2em;
+    margin-top: 1.5em;
+}
+.masthead h2 {
+    margin-top: 0.5em;
+    font-size: 1.5em;
+}
+}
+
+.main-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.main.container {
+    margin-top: 7em;
+}
+
+.masthead.segment img {
+	z-index: -1;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: auto;
+	height: auto;
+	max-height: none;
+	max-width: none;
+	min-height: 100%;
+	min-width: 100%;
+	transform: translate(-50%,-50%);
+	-ms-transform: translate(-50%,-50%);
+	-webkit-transform: translate(-50%,-50%);
+}
+
+.masthead.segment .ui.secondary.pointing.menu {
+	border-width: 0;
+}
+
+.masthead.segment img {
+    z-index: -1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: auto;
+    height: auto;
+    max-height: none;
+    max-width: none;
+    min-height: 100%;
+    min-width: 100%;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+}
+
+.masthead.segment {
+	min-height: 700px;
+	padding: 1em 0;
+	background: rgba(0,0,0,.3) !important;
+	text-shadow: 0 0 10px rgba(0,0,0,.4);
+	overflow: hidden;
+}
+
+.ui.inverted.vertical.segment footer.ui.segment {
+    height: 80px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    color: gray;
+    background: rgba(0,0,0,.0) !important;
+    text-shadow: 0 0 10px rgba(0,0,0,.4);
+    overflow: hidden;
+}
+
+.captcha {
+    height: 33px;
+    width: 160px;
+}
+
+/* rewrite semantic ui css navbar */
+@media only screen and (min-width:768px) {
+    #navbar-small {
+        display: none;
+    }
+    #navbar-big {
+        display: flex;
+    }
+}
+@media only screen and (max-width:767px) {
+    #navbar-small {
+        display: flex;
+    }
+    #navbar-big {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .ui.fixed.menu {
+        display: flex !important;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .secondary.pointing.menu .item {
+        display: flex !important;
+    }
+}
+
+.ui.file.input input[type="file"] {
+    display: none;
+}
+
+/* prevent simpleMDE too long */
+.CodeMirror-scroll {
+    height: 30px !important;
+}

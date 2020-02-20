@@ -1,0 +1,16 @@
+
+
+
+{% extends 'base.jinja2' %}
+
+{% block title %}登陆{% endblock %}
+
+{% block content %}
+    <div class="ui middle aligned center aligned grid">
+        <div class="ui existing center segment" style="min-width: 450px; max-width: 450px;">
+            <h1 style="text-align: center;">登陆</h1>
+            {% include 'components/form.jinja2' %}
+        </div>
+    </div>
+
+{% endblock %}

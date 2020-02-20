@@ -1,0 +1,30 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="stylesheet" href="/static/semantic/dist/semantic.css">
+  <script src="/static/node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="/static/semantic/dist/semantic.js"></script>
+  <link rel="stylesheet" href="/static/css.css?20200218">
+  <link rel="stylesheet" href="/static/node_modules/simplemde/dist/simplemde.min.css">
+  <title>{% block title %}{% endblock %}{% block baseTitle %} - 拾作业{% endblock %}</title>
+  {% block innerCss %}
+  {% endblock %}
+</head>
+
+<body class="main-body">
+    <div class="pusher">
+      {% block body %}
+      {% endblock %}
+    </div>
+
+    {% block innerJs %}
+    {% endblock %}
+
+    <script src="/static/node_modules/simplemde/dist/simplemde.min.js"></script>
+    <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+{% extends 'base.jinja2' %}
+
+{% block title %} {{course.title}} {% endblock %}
+
+{% block content%}
+
+    <div class="ui three column grid">
+        <div class="twelve wide column">
+            <h1>{{course.title}}</h1>
+            
+            <div class="ui text menu">
+                <a class="active item">作业</a>
+                <a class="item" href="{{url('submission_list')}}?user={{request.user.pk}}">我的提交</a>
+                <a class="item">管理</a>
+            </div>
+
+            <table class="ui unstackable celled table">
+                <thead>
+                    <tr>
+                        <th>作业号</th>
+                        <th>作业名</th>
+                        <th>截止日期</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for assignment in course.assignments.order_by('-end_time') %}
+                        <tr>
+                            <td>{{assignment.id}}</td>
+                            <td><a href="{{url('assignment_detail', assignment.pk)}}">{{assignment.title}}</a></td>
+                            <td>{{assignment.end_time | date('Y-m-d H:i')}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="four wide column">
+            <div class="ui card">
+                <div class="content">
+                    <h2>Boss:</h2>
+                </div>
+                <div class="content">
+                    {% for teacher in course.teachers.all() %}
+                        {{ teacher.username }}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="ui card">
+                <div class="content">
+                    <h2>公告:</h2>
+                </div>
+                <div class="content">
+                    {{ course.description }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

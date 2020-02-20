@@ -1,0 +1,55 @@
+{% macro username_dropdown() %}
+  	{% if user.is_authenticated %}
+		<div class="ui dropdown simple item">
+			<div class="text">{{ request.user.username }}</div>
+			<i class="dropdown icon"></i>
+			<div class="menu">
+				<a class="item" href="{{url('user_detail', request.user.pk)}}">个人档案</a>
+				<a class="item" href="{{url('submission_list')}}?user={{request.user.pk}}">提交记录</a>
+				<a class="item" href="">个人设置</a>
+				<a class="item" href="{{url('logout')}}?next={{request.path}}">登出</a>
+			</div>
+		</div>
+  	{% else %}
+		<div class="item"><a class="ui primary button" href="{{url('login')}}?next={{request.path}}">登陆</a></div>
+		<div class="item"><a class="ui button" href="{{url('register')}}?next={{request.path}}">注册</a></div>	
+  	{% endif %}
+{% endmacro %}
+
+
+
+<div class="ui top fixed borderless fluid huge menu">
+
+	<div id="navbar-small" class="ui container"> {# 拉小屏幕显示的nav bar#}
+		{# <a class="browse item">浏览课程 <i class="dropdown icon"></i> </a> #}
+		<div class="ui dropdown item">拾作业 <i class="dropdown icon"></i>
+			<div class="menu">
+				<a class="item" href="{{url('home')}}">首页</a>
+				<a class="item" href="{{url('assignment_list')}}">作业</a>
+				<a class="item" href="{{url('course_list')}}">课程</a>
+				{% if user.is_authenticated %}
+					<a class="item" href="{{url('user_detail', request.user.pk)}}">个人档案</a>
+					<a class="item" href="{{url('submission_list')}}?user={{request.user.pk}}">提交记录</a>
+					<a class="item" href="">个人设置</a>
+					<a class="item" href="{{url('logout')}}?next={{request.path}}">登出</a>
+  				{% else %}
+					<a class="item" href="{{url('login')}}?next={{request.path}}">登陆</a>
+					<a class="item" href="{{url('register')}}?next={{request.path}}">注册</a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+    <div id="navbar-big" class="ui container">
+		<a class="header item" href="{{url('home')}}">拾作业</a>
+		{% with active = request.path.split('/')[1] %}
+			{#<a class="{% if active == '' %} active {% endif %} item" href="{{url('home')}}"><i class="home icon"></i>首页</a>#}
+			<a class="{% if active == 'assignment' %} active {% endif %} item" href="{{url('assignment_list')}}"><i class="file icon"></i>作业</a>
+			<a class="{% if active == 'course' %} active {% endif %} item" href="{{url('course_list')}}"><i class="book icon"></i>课程</a>
+			{#<a class="{% if active == 'account' %} active {% endif %} item" href="{{url('user_list')}}"><i class="user icon"></i>账号</a>#}
+		{% endwith %}
+		<div class="right menu">
+			{{ username_dropdown() }}
+		</div>
+    </div>
+</div>

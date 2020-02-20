@@ -1,0 +1,16 @@
+{% extends 'base.jinja2' %}
+
+{% block title %} 提交 {% endblock %}
+
+{% block content%}
+
+    {{submission.submit_author}}
+    <br>
+    {{submission.assignment.title}}
+    <br>
+    {{submission.submit_pdf}}
+
+
+    
+
+{% endblock %}

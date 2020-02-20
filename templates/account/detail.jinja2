@@ -1,0 +1,51 @@
+{% extends 'base.jinja2' %}
+
+{% block title %} {{object.username}} {% endblock %}
+
+{% block content%}
+
+<div class="ui three column grid">
+    <div class="left floated four wide column">
+         <div class="ui card">
+            <div class="image">
+                <img src="{{ object.avatar_large.url }}">
+            </div>
+            <div class="content">
+                <a class="header" href="{{url('user_detail', object.pk)}}">{{ object }}</a>
+                <div class="meta">
+                    <span class="date">{{ object.create_time.year }}年加入</span>
+                </div>
+                <div class="description"></div>
+            </div>
+            <div class="extra content">
+                <a><i class="user icon"></i></a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="twelve wide column">
+        <div class="section">
+            <h2 class="ui header">近期加入的课程</h2>
+            <table class="ui center aligned table">
+                <thead>
+                    <tr>
+                        <th>课程号</th>
+                        <th>课程名</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for joined_course in joined_courses %}
+                        <tr>
+                            <td>{{joined_course.pk}}</td>
+                            <td><a href="{{url('course_detail', joined_course.pk)}}">{{joined_course.title}}</a></td>
+                        </tr>
+                    {% endfor %}
+                
+                </tbody>
+                </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
