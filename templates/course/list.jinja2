@@ -6,28 +6,10 @@
 
     <h1>课程列表</h1>
 
-    <table class="ui celled table center aligned compact unstackable">
-        <thead>
-            <tr>
-                <th>课程号</th>
-                <th>课程名</th>
-                <th>教师</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for course in courses %}
-                <tr>
-                    <td>{{course.pk}}</td>
-                    <td><a href="{{ url('course_detail', course.pk) }}">{{ course.title }} </a></td>
-                    <td>
-                        {% set ts = course.teachers.all() %}
-                        {% for t in ts %}
-                            {{ t.username }}&nbsp;
-                        {% endfor %}
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    {% include "course/table_list.jinja2" %}
+
+    {% if paginator %}
+        {{ my_paginator() }}
+    {% endif %}
 
 {% endblock %}

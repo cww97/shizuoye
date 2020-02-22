@@ -1,0 +1,42 @@
+{% extends 'polygon/base.jinja2' %}
+
+{% block title %} 拾作业Polygon {% endblock %}
+
+{% block content%}
+
+<div class="ui piled segment">
+    <h1 class="ui header">欢迎来到拾作业Polygon</h4>
+
+    <p>Polygon 的灵感源于 <a href="https://polygon.codeforces.com/">codeforces的Polygon</a> 和 <a href="https://acm.ecnu.edu.cn/polygon/">EOJ的Polygon </a>，这同时回答了Polygon是什么 </p>
+
+    <div class="ui message">
+        <div class="header">
+            Polygon的任务
+        </div>
+        <p> Polygon的任务是为课程和作业的创造提供一个一站式一体化的管理平台，Polygon supports the whole development cycle:</p>
+        <ul class="list">
+            <li>创建、编辑课程</li>
+            <li>管理课程中学生</li>
+            <li>在课程中创建作业</li>
+            <li> 一键收取作业or逐个在线批改 </li>
+            <li>根据教师设计的规则自动为作业打分（摸了）</li>
+        </ul>
+    </div>
+
+    <p>获取Polygon权限，你必须符合至少一项以下条件</p>
+    <ul class="list">
+        <li>Be invited</li>
+        <li>参考上一条</li>
+    </ul>
+
+    <p>如果你已经登录并且获取了Polygon权限，你应该会在下面看见一个按钮</p>
+    
+    {% if request.user.is_authenticated and request.user.has_coach_access() %}
+        <div class="ui container center aligned">
+            <a href="" class="ui primary button" style=""> biubiubiu </a>
+        </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

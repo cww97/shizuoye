@@ -14,17 +14,19 @@ class Course(models.Model):
     title = models.CharField(_('Title'), max_length=192, blank=True)
     description = models.TextField("描述", blank=True)
     create_time = models.DateTimeField("创建时间", auto_now_add=True)
+    start_time = models.DateTimeField("开始时间", default=create_time),
     
     access_level = models.PositiveIntegerField("访问控制", default=0, choices=ACCESS_LEVEL_OPTIONS)
 
     teachers = models.ManyToManyField(User, related_name='course_teacher')
     assistants = models.ManyToManyField(User, related_name='course_assistants', blank=True)
 
-    assignments = models.ManyToManyField(Assignment, related_name='course_assignment', blank=True)
+    assignments = models.ManyToManyField(Assignment, related_name='course_assignments', blank=True)
     participants = models.ManyToManyField(User, related_name='course_participants', blank=True)
 
     def __str__(self):
         return self.title
+
 
 class CourseInvitation(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)

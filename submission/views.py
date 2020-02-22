@@ -6,6 +6,7 @@ from .forms import SubmitAssignmentForm, FeedbackAssignmentForm
 from assignment.models import Assignment
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from account.models import User
 
 
 class SubmissionListView(ListView):
@@ -17,20 +18,30 @@ class SubmissionListView(ListView):
     def get_ordering(self):
         return "-submit_time"
     
-    def get_queryset(self):
-        user = self.request.GET.get('user')
-        queryset = self.model.objects.all()
-        if user:
-            queryset = queryset.filter(author=user)
-        return queryset
-    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['STATUS_STR'] = STATUS_STR
         return context
 
 
+class MySubmissionListView(SubmissionListView):
+    template_name = 'submission/my_submissions.jinja2'
+    
+    def get_queryset(self, **kwargs):
+        user = self.request.GET.get('user')
+        queryset = super().get_queryset(**kwargs)
+        return queryset.filter(submit_author=user)
+
+
 class SubmissionDetailView(DetailView):
+    """
+    show the detail of a submission, assert one submission has content or
+    pdf file, if content, render the markdown, if pdf, preview it(or show 
+    the file at first). If its status is just 'submitted', ok.
+
+    if the teacher gave the feedback, show the feedback details includes:
+    status: Accept/Reject, score, feedback content/pdf
+    """
     model = Submission
     template_name = 'submission/detail.jinja2'
     context_object_name = 'submission'

@@ -6,7 +6,7 @@
 
     <div class="ui three column grid">
         <div class="twelve wide column">
-            <h1>{{ assignment.title }}</h1>
+            <h1 class="ui header">{{ assignment.title }}</h1>
             
             {#<h3>作业内容:</h3>#}
             <div>{{assignment.description}}</div>
@@ -15,7 +15,7 @@
 
             {% if submissions %}
                 <h3> 我的提交记录 </h3>
-                {% include "submission/list.jinja2" %}
+                {% include "submission/base_list.jinja2" %}
             {% endif %}
 
         </div>

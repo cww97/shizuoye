@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, ValidationError
 from .models import Submission
 from django.shortcuts import get_object_or_404
 from assignment.models import Assignment
@@ -18,8 +18,8 @@ class SubmitAssignmentForm(ModelForm):
         ctx = self.cleaned_data.get('submit_content')
         pdf = self.cleaned_data.get('submit_pdf')
         # assert False
-        if ctx == '' and pdf ==None:
-            self.add_error(NON_FIELD_ERRORS, '您想交白卷吗')
+        if ctx == '' and pdf == None:
+            self.add_error(NON_FIELD_ERRORS, '你想交白卷吗?')
             # add 了 error, 不过前端没有显示，天亮再管把
             #
             #

@@ -7,21 +7,7 @@
     <div class="left floated four wide column">
         
         {# ddd #}
-        <div class="ui card">
-            <div class="image">
-                <img src="{{ request.user.avatar_large.url }}">
-            </div>
-            <div class="content">
-                <a class="header" href="{{url('user_detail', request.user.pk)}}">{{ request.user }}</a>
-                <div class="meta">
-                    <span class="date">{{ request.user.create_time.year }}年加入</span>
-                </div>
-                <div class="description"></div>
-            </div>
-            <div class="extra content">
-                <a><i class="user icon"></i></a>
-            </div>
-        </div>
+        {% include "account/avatar_card.jinja2" %}
 
         <div class="ui card">
             <div class="content">
@@ -55,7 +41,6 @@
                 </div>
             {% endif %}
         </div>
-        
     </div>
 
 
@@ -65,20 +50,18 @@
 
             <h2 class="ui header">Deadline</h2>
 
-            {% for course in courses %}
+            {% for obj in deadlines %}
                 <div class="item">
                     <div class="content">
-                        <a class="header" href="{{url('course_detail', course.pk)}}">{{ course.title }}</a>
+                        <a class="header" href="{{url('assignment_detail', obj.pk)}}">{{ obj.title }}</a>
                         <div class="meta">
-                            {% for teacher in course.teachers.all() %}
-                                <span class="description">{{ teacher.username }}</span>
-                            {% endfor %}
+                            <span class="description">{{ obj.belong_to }}</span>
                         </div>
                         <div class="description">
-                            <p>{#{{ course.description }}#}</p>
+                            <p>{{ obj.description }}</p>
                         </div>
                         <div class="extra">
-                            <a href="{{url('course_detail', course.pk)}}"><div class="ui right floated primary button">加入<i class="right chevron icon"></i> </div></a>
+                            <a href="{{url('assignment_detail', obj.pk)}}"><div class="ui right floated primary button">加入<i class="right chevron icon"></i> </div></a>
                         </div>
                     </div>
                 </div>

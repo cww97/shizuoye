@@ -1,0 +1,21 @@
+         <div class="ui card">
+            <div class="image">
+                <img src="{{ object.avatar_large.url }}">
+            </div>
+            <div class="content">
+                <a class="header" href="{{url('user_detail', object.pk)}}">{{ object }}</a>
+                <div class="meta">
+                    <span class="date">{{ object.create_time.year }}年 {{object.create_time.month}}月加入</span>
+                </div>
+                <div class="description">
+                    {% if object.school %} 目前正在 {{object.school}} 工作/学习 {% endif%}
+                    {% if object.school and object.motto %} <br> {% endif %}
+                    {% if object.motto%} <b>{{object.motto}}</b> {% endif %}
+                </div>
+                <div class="description"></div>
+            </div>
+            <div class="extra content">
+                {#<a><i class="user icon"></i></a>#}
+                已经交过 {{submission_cnt}}次作业
+            </div>
+        </div>

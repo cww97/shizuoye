@@ -1,0 +1,7 @@
+{% with active = request.path.split('/')[3] %}
+<div class="ui text menu stackable">
+    <a href="{{url('user_detail', request.user.pk)}}" class="item">我的主页</a>
+    <a href="{{url('profile_settings')}}" class="{% if active == 'profile' %} active {% endif %} item">资料</a>
+    <a href="{{url('profile_security')}}" class="{% if active == 'security' %} active {% endif %} item">安全</a>
+</div>
+{% endwith %}

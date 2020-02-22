@@ -1,0 +1,45 @@
+{% extends "polygon/base.jinja2" %}
+
+{% block title %} 作业 {% endblock title %}
+
+{% block content %}
+
+    <form class="ui form" name="searchForm">
+        <div class="ui icon input">
+            <input type="text" name="q" value="{{ search_text }}" placeholder="Search...">
+            <i class="inverted circular search link icon" onclick="document.forms.searchForm.submit()"></i>
+        </div>
+    </form>
+
+    <table class="ui celled table center aligned compact unstackable">
+        <thead>
+            <tr>
+                <th>作业号</th>
+                <th>作业标题</th>
+                <th>开始时间</th>
+                <th>截止时间</th>
+                <th>出题人</th>
+                <th>课程</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for due in dues %}
+                <tr>
+                    <td>{{due.pk}}</td>
+                    <td><a href="{{ url('assignment_detail', due.pk) }}">{{ due.title }} </a></td>
+                    <td>{{ due.start_time | date('Y-m-d H:i') }}</td>
+                    <td>{{ due.end_time | date('Y-m-d H:i') }}</td>
+                    <td><a href="{{ url('user_detail', due.author.pk) }}"> {{ due.author }} </a></td>
+                    <td><a href="{{ url('course_detail', due.course.pk) }}"> {{ due.course }}</a></td>
+                </tr>
+            {% endfor %}
+        </tobdy>
+    </table>
+
+    {% if paginator %}
+        {{ my_paginator() }}
+    {% endif %}
+
+{% endblock content %}
+

@@ -35,15 +35,23 @@ class LoginForm(AuthenticationForm):
 class RegisterForm(ModelForm):
     class Meta:
         model = User
-        fields = ['phone', 'username']
+        fields = ['phone', 'username', 'email']
         error_messages = {
+            'email': {
+                'required': '请填入邮箱，这是您找回密码的途径。'
+            },
             'username': {
-                'require': "请输入用户名。"
+                'required': "请输入用户名。"
             },
             'phone': {
-                'require': "请输入手机号"
+                'required': "请输入手机号"
             }
         }
+
+    def __init__(self, *args, **kwargs):
+        super(RegisterForm, self).__init__(*args, **kwargs)
+        self.fields['email'].required = True
+        self.fields['email'].label = "邮箱（找回密码需要用到）"
 
     password = forms.CharField(help_text="至少六位",
                                 widget=forms.PasswordInput,
@@ -75,3 +83,32 @@ class RegisterForm(ModelForm):
         if data.get('password') != data.get('repeat_password'):
             self.add_error('repeat_password', forms.ValidationError("密码不匹配。", code='invalid'))
         return data
+
+class ProfileForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ['email', 'school', 'name', 'student_id', 'motto', 'avatar']
+        error_messages = {
+        }
+
+    def clean_avatar(self):
+        avatar = self.cleaned_data['avatar']
+        if avatar.size > 2 * 1048576:
+            raise forms.ValidationError("图片大小不能超过 2MB。")
+        return avatar
+
+class MyPasswordChangeForm(PasswordChangeForm):
+    new_password1 = forms.CharField(
+        label="新密码",
+        widget=forms.PasswordInput,
+        strip=False,
+        help_text='',
+    )
+
+class MySetPasswordForm(SetPasswordForm):
+    new_password1 = forms.CharField(
+        label="新密码",
+        widget=forms.PasswordInput,
+        strip=False,
+        help_text='',
+    )

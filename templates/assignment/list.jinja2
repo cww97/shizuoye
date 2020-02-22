@@ -13,6 +13,8 @@
                 <th>作业标题</th>
                 <th>开始时间</th>
                 <th>截止时间</th>
+                <th>出题人</th>
+                <th>课程</th>
             </tr>
         </thead>
 
@@ -23,9 +25,15 @@
                     <td><a href="{{ url('assignment_detail', due.pk) }}">{{ due.title }} </a></td>
                     <td>{{ due.start_time | date('Y-m-d H:i') }}</td>
                     <td>{{ due.end_time | date('Y-m-d H:i') }}</td>
+                    <td><a href="{{ url('user_detail', due.author.pk) }}"> {{ due.author }} </a></td>
+                    <td><a href="{{ url('course_detail', due.course.pk) }}"> {{ due.course }}</a></td>
                 </tr>
             {% endfor %}
         </tobdy>
     </table>
+
+    {% if paginator %}
+        {{ my_paginator() }}
+    {% endif %}
 
 {% endblock %}

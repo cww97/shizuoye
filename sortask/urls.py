@@ -18,7 +18,7 @@ from django.urls import path, include
 from django.conf.urls import url
 from django.views import static
 from django.conf import settings
-import home.urls, course.urls, assignment.urls, account.urls, submission.urls
+import home.urls, course.urls, assignment.urls, account.urls, submission.urls, polygon.urls
 from .settings import MEDIA_ROOT
 
 urlpatterns = [
@@ -36,6 +36,8 @@ urlpatterns = [
     path('submission/', include('submission.urls')),
     # captcha
     path('captcha/', include('captcha.urls')),
+    # polygon
+    path('polygon/', include(('polygon.urls', 'polygon'), namespace='polygon')),
 
     # temporary use this
     # static files

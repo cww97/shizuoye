@@ -5,8 +5,8 @@
 			<i class="dropdown icon"></i>
 			<div class="menu">
 				<a class="item" href="{{url('user_detail', request.user.pk)}}">个人档案</a>
-				<a class="item" href="{{url('submission_list')}}?user={{request.user.pk}}">提交记录</a>
-				<a class="item" href="">个人设置</a>
+				<a class="item" href="{{url('my_submissions')}}?user={{request.user.pk}}">提交记录</a>
+				<a class="item" href="{{url('profile_settings')}}">个人设置</a>
 				<a class="item" href="{{url('logout')}}?next={{request.path}}">登出</a>
 			</div>
 		</div>
@@ -29,7 +29,7 @@
 				<a class="item" href="{{url('course_list')}}">课程</a>
 				{% if user.is_authenticated %}
 					<a class="item" href="{{url('user_detail', request.user.pk)}}">个人档案</a>
-					<a class="item" href="{{url('submission_list')}}?user={{request.user.pk}}">提交记录</a>
+					<a class="item" href="{{url('my_submissions')}}?user={{request.user.pk}}">提交记录</a>
 					<a class="item" href="">个人设置</a>
 					<a class="item" href="{{url('logout')}}?next={{request.path}}">登出</a>
   				{% else %}

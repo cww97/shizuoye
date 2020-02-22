@@ -24,6 +24,10 @@ class SubmissionStatus(object):
 # upload file rename
 def submit_pdf_upload_to(instance, filename):
         # submit_authoer.name name assignment.title
+        return 'pdf/submission/{assignment_id}/{filename}'.format(
+            assignment_id=instance.assignment.id,
+            filename=filename
+        )
         return 'pdf/submission/{assignment_id}/{name}_{title}.{filename_ext}'.format(
             assignment_id=instance.assignment.id,
             name=instance.submit_author.name,
@@ -35,7 +39,7 @@ class Submission(models.Model):
     assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE)
     status = models.IntegerField(choices=STATUS_CHOICE, db_index=True, default=SubmissionStatus.SUBMITTED)
 
-    submit_author = models.ForeignKey(User, on_delete=models.CASCADE)
+    submit_author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_submission")
     submit_time = models.DateTimeField(auto_now_add=True)
     submit_content = models.TextField(blank=True)
     submit_pdf = models.FileField('提交pdf', upload_to=submit_pdf_upload_to, null=True, blank=True)

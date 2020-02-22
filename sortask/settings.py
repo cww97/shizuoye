@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'assignment.apps.AssignmentConfig',
     'course.apps.CourseConfig',
     'submission.apps.SubmissionConfig',
+    'polygon.apps.PolygonConfig',
 
     # third party
     'phonenumber_field',
@@ -81,7 +82,7 @@ TEMPLATES = [
     # },
     {
         'BACKEND': 'django_jinja.backend.Jinja2',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'polygon/templates')],
         # 'OPTIONS': {'environment': 'eoj3.jinja2.environment'},
         'APP_DIRS': True,
         'OPTIONS': {
@@ -204,6 +205,8 @@ STATICFILES_DIRS = [
 AUTH_USER_MODEL = 'account.User'
 
 LOGIN_REDIRECT_URL = '/'
+# login_required redirect to this
+LOGIN_URL = '/account/login/'
 
 # CAPTCHA
 CAPTCHA_FOREGROUND_COLOR = "#000000"
@@ -214,3 +217,14 @@ CAPTCHA_CHALLENGE_FUNCT = 'sortask.captcha.random_math_challenge'
 
 MEDIA_ROOT = os.path.join(BASE_DIR.replace('sortask', ''), 'media')
 MEDIA_URL = '/media/'
+
+# email
+# change into config files
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_SSL = True
+EMAIL_HOST = 'smtp.163.com'  # SMTP服务器地址
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'shizuoye_service@163.com'
+EMAIL_HOST_PASSWORD = 'Cr1xxMzM9KmcXdbq'
+EMAIL_FROM = 'shizuoye_service@163.com'
+DEFAULT_FROM_EMAIL = 'shizuoye_service@163.com'

@@ -1,4 +1,4 @@
-{# {% include 'components/message.jinja2' %} #}
+{% include 'components/message.jinja2' %}
 
 {% set error_exists = [] %}
 {% for field in form %}
@@ -31,7 +31,6 @@
 	{% endif %}
 
 	{% for field in form %}
-		{{field.field.widget.__class__.__name__}}
 		<div class="field {% if field.errors %}error{% endif %}">
 			{% if field.field.widget.__class__.__name__ == 'CheckboxInput' %}
 				<div class="ui checkbox">
@@ -40,15 +39,15 @@
 				</div>
 			{% elif field.field.widget.__class__.__name__ == 'Select' %}
 				{% if field.name == 'school' %}
-				<label>学校: <a data-target="#addSchoolModal" class="modal-link">找不到你所在的学校？</a></label>
+					<label>学校: <a data-target="#addSchoolModal" class="modal-link">找不到你所在的学校？</a></label>
 				{% else %}
-				{{ field.label_tag() }}
+					{{ field.label_tag() }}
 				{% endif %}
-				<select class="ui selection dropdown" id="{{ field.id_for_label }}" name="{{ field.name }}">
-					{% for key, val in field.field.widget.choices %}
-						<option value="{{ key }}" {% if field.initial == key %}selected{% endif %}>{{ val }}</option>
-					{% endfor %}
-				</select>
+					<select class="ui selection dropdown" id="{{ field.id_for_label }}" name="{{ field.name }}">
+						{% for key, val in field.field.widget.choices %}
+							<option value="{{ key }}" {% if field.initial == key %}selected{% endif %}>{{ val }}</option>
+						{% endfor %}
+					</select>
 			{% elif field.field.widget.__class__.__name__ == 'SelectMultiple' %}
 				{{ field.label_tag() }}
 				<div class="ui multiple selection search dropdown">
@@ -57,7 +56,7 @@
 					<div class="default text">选择多个</div>
 					<div class="menu">
 						{% for key, val in field.field.widget.choices %}
-						<div class="item" data-value="{{ key }}">{{ val }}</div>
+							<div class="item" data-value="{{ key }}">{{ val }}</div>
 						{% endfor %}
 					</div>
 				</div>
@@ -92,9 +91,11 @@
 	{% endfor %}
 
 	<div class="field" style="text-align: center;">
-	{% if submit_button %} {{ submit_button }}
-	{% else %} <button type="submit" class="ui positive button">确定</button>
-	{% endif %}
+		{% if submit_button %} 
+			{{ submit_button }}
+		{% else %} 
+			<button type="submit" class="ui positive button">确定</button>
+		{% endif %}
 	</div>
 
 </form>

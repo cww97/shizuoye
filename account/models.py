@@ -39,13 +39,14 @@ class User(AbstractUser):
                               error_messages={
                                 'unique': _("A user with that username already exists.")}
                               )
-    phone = PhoneNumberField(region='CN', blank=True, unique=True)
+    phone = PhoneNumberField("手机号码", region='CN', blank=True, unique=True)
     email = models.EmailField("邮箱", max_length=192, blank=True, error_messages={
         'unique': _("This email has already been used.")
     })
     school = models.CharField("学校", max_length=64, blank=True)
     name = models.CharField("真实姓名", max_length=30, blank=True)
     student_id = models.CharField("学号", max_length=30, blank=True)
+    motto = models.CharField("警句", max_length=192, blank=True)
     
     create_time = models.DateTimeField("创建时间", auto_now_add=True)
     polygon_enabled = models.BooleanField(default=False)
@@ -60,4 +61,4 @@ class User(AbstractUser):
         return self.username
 
     def has_coach_access(self):
-        return self.polygon_enabledpython
+        return self.polygon_enabled

@@ -1,0 +1,23 @@
+{% extends "polygon/base.jinja2" %}
+
+{% from 'components/search_user.jinja2' import user_search_multiple %}
+
+{% block title %} 课程管理 - {% endblock %}
+
+{% block content %}
+  <h1 class="ui header"> 课程: {{ course.title }}</h1>
+
+  <div class="ui pointing secondary menu">
+    {#{{ active('polygon:contest_participant') }}#}
+    <a class="item " href="{{ url('polygon:course_meta', course.id) }}">基本信息</a>
+    <a class="item " href="">作业</a>
+    <a class="item " href="">邀请码</a>
+    <a class="item " href="">已加入的用户</a>
+    <a class="item " href="">提交</a>
+    <a class="item" href="{{ url('course_detail', course.pk) }}">查看前台</a>
+  </div>
+
+  {% block contest_content %}
+  {% endblock %}
+
+{% endblock %}

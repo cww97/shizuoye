@@ -2,6 +2,8 @@ $('.ui.checkbox:not(.vue)')
   .checkbox()
 ;
 
+$('.ui.dropdown').dropdown();
+
 $('.captcha-refresh, img.captcha').click(function(){
     var $form = $(this).parents('form');
     $.getJSON("/captcha/refresh/", {}, function(json) {
@@ -66,3 +68,84 @@ $.fn.simpleMDE = function () {
 };
 
 $("textarea.markdown").simpleMDE();
+
+// function post and modal related
+function postWithLocalData (button) {
+  var link = button.data('link');
+  var data = button.data();
+  data['csrfmiddlewaretoken'] = Cookies.get('csrftoken');
+  $.post(link, data, function (data) {
+      location.reload();
+    }
+  );
+}
+
+$(".post-link")
+  .on('click', function(e) {
+    postWithLocalData($(e.currentTarget));
+  })
+  .attr('href', 'javascript:void(0)');
+
+  $(".modal-link")
+  .on('click', function (e) {
+    var button = $(e.currentTarget);
+    var modal = $(button.data('target'));
+    if (button.data('action'))
+      modal.find("form").attr("action", button.data('action'));
+    if (modal.find("form").length > 0)
+      replaceFormData(modal.find("form"), button.data());
+    modal
+      .modal({
+        onApprove: function () {
+          var form = $(this).find("form");
+          var data = new FormData(form[0]);
+          $.ajax({
+            url: form.attr("action"),
+            type: 'POST',
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+              if (data.redirect) {
+                window.location.href = data.redirect;
+              } else {
+                location.reload();
+              }
+            }
+          });
+        }
+      })
+      .modal('show');
+  })
+  .attr('href', 'javascript:void(0)');
+
+
+$(".post, .get").on('click', function (event) {
+    var button = $(event.currentTarget);
+    var method = button.hasClass("post") ? "post" : "get";
+    var link = button.data("link");
+    var extra_input = {};
+    if (button.hasClass("gather")) {
+      // gather all checkbox information
+      extra_input["gather"] = $.makeArray($("input[type='checkbox']").map(function() {
+        return this.checked ? this.name : "";
+      })).filter(function(n) {
+        return n != "all" && n != "";
+      }).join(",");
+      if (!extra_input["gather"]) {
+        alert("Please select cases first!");
+        return;
+      }
+    }
+    if (button.hasClass("ask")) {
+      extra_input["answer"] = prompt(button.data("question") || "");
+      console.log(extra_input["answer"] !== null);
+      if (extra_input["answer"] !== null)
+        redirect(link, method, extra_input);
+    } else if (button.hasClass("prompt")) {
+      if (confirm("Are you sure about this?"))
+        redirect(link, method, extra_input);
+    } else {
+      redirect(link, method, extra_input);
+    }
+  }).attr('href', 'javascript:void(0)');
